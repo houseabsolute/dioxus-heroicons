@@ -48,7 +48,7 @@ use dioxus::{events::MouseEvent, prelude::*};
 /// This trait is used to abstract the icon shape so you can use shapes from
 /// the [`outline`] or [`solid`] modules for any property that accepts a
 /// shape.
-pub trait IconShape: Clone {
+pub trait IconShape: Clone + std::fmt::Debug {
     fn view_box(&self) -> &str;
     fn path(&self) -> LazyNodes;
 }
