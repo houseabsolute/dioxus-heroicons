@@ -174,9 +174,9 @@ pub struct IconProps<'a, S: IconShape> {
 #[allow(non_snake_case)]
 pub fn Icon<'a, S: IconShape>(cx: Scope<'a, IconProps<S>>) -> Element<'a> {
     let fill = if cx.props.disabled {
-        &cx.props.disabled_fill
+        cx.props.disabled_fill
     } else {
-        "currentColor"
+        cx.props.fill
     };
     cx.render(rsx! {
         svg {
