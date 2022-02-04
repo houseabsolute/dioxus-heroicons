@@ -37,6 +37,10 @@
 //!     })
 //! }
 //! ```
+//!
+//! Check out https://jkelleyrtp.github.io/icon-chooser/ for an icon chooser
+//! that shows you all the solid icons and lets you copy the relevant
+//! component code to the clipboard.
 
 /// This module contains all the outline icon shapes.
 pub mod outline;
