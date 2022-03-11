@@ -15,7 +15,7 @@
 //!     let onclick = move |evt| {
 //!         // Delete a thing
 //!     };
-//!     let disabled = if foo < 42 { true } else { false };
+//!     let disabled = if *foo < 42 { true } else { false };
 //!     cx.render(rsx! {
 //!         IconButton {
 //!             onclick: onclick,
