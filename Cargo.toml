@@ -13,3 +13,6 @@ dioxus = { version = "0.2.0", features = ["html"] }
 
 [workspace]
 members = ["gen"]
+
+[workspace.metadata.release]
+allow-branch = ["master"]
