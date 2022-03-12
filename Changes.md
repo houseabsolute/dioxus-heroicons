@@ -1,3 +1,10 @@
+## 0.1.3 - 2022-03-12
+
+* Regenerated icons code with the latest heroicons release, v1.0.6. This
+  release has a few changes to the solid icons compared to the previous
+  release of dioxus-heroicons.
+
+
 ## 0.1.2 - 2022-03-11
 
 * Update Dioxus dependency to 0.2.0.
