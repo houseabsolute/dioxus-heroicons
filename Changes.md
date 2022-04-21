@@ -1,4 +1,4 @@
-## 0.1.4
+## 0.1.4 - 2022-04-21
 
 * Fix handling of attributes to be compatible with all versions of Dioxus. GH
   #2. Fixed by Jon Kelley.

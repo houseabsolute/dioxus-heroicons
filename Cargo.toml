@@ -1,6 +1,6 @@
 [package]
 name = "dioxus-heroicons"
-version = "0.1.3"
+version = "0.1.4"
 authors = ["Dave Rolsky <autarch@urth.org>"]
 description = "Dioxus components for heroicons (https://heroicons.com/)"
 repository = "https://github.com/houseabsolute/dioxus-heroicons"
