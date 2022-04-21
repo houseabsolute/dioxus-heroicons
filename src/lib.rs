@@ -128,12 +128,14 @@ pub fn IconButton<'a, S: IconShape>(cx: Scope<'a, IconButtonProps<'a, S>>) -> El
             title: format_args!("{}", cx.props.title.unwrap_or("")),
             disabled: format_args!("{}", if cx.props.disabled { "true" } else { "false" }),
             Icon {
-                class: cx.props.icon_class,
-                disabled: cx.props.disabled,
-                size: cx.props.size,
-                fill: "{cx.props.fill}",
-                disabled_fill: cx.props.disabled_fill,
-                icon: cx.props.icon.clone(),
+                ..IconProps {
+                    class: cx.props.icon_class,
+                    size: cx.props.size,
+                    fill: cx.props.fill,
+                    icon: cx.props.icon.clone(),
+                    disabled: cx.props.disabled,
+                    disabled_fill: cx.props.disabled_fill
+                },
             },
             span {
                 class: format_args!("{}", cx.props.span_class.unwrap_or("")),

@@ -1,3 +1,9 @@
+## 0.1.4
+
+* Fix handling of attributes to be compatible with all versions of Dioxus. GH
+  #2. Fixed by Jon Kelley.
+
+
 ## 0.1.3 - 2022-03-12
 
 * Regenerated icons code with the latest heroicons release, v1.0.6. This
