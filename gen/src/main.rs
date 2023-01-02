@@ -25,15 +25,24 @@ struct Icon {
     fill_rule: Option<String>,
 }
 
+fn style_to_dir(style: &str) -> &str {
+    match style {
+        "outline" => "24/outline",
+        "solid" => "24/solid",
+        "mini" => "20/solid",
+        _ => panic!("unknown style"),
+    }
+}
+
 fn main() {
     let args = Args::parse();
 
     let mut src_dir = args.heroicons.clone();
     src_dir.push("src");
 
-    for style in &["outline", "solid"] {
+    for style in &["outline", "solid", "mini"] {
         let mut src_dir = src_dir.clone();
-        src_dir.push(style);
+        src_dir.push(style_to_dir(style));
 
         let icons = make_icons(&src_dir);
 

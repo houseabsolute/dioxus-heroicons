@@ -1,3 +1,11 @@
+## 0.2.0
+
+* Update to heroicons v2.0.13. Note that this is a major version bump for the
+  heroicons, and many icons in previous releases no longer exist. See
+  https://github.com/tailwindlabs/heroicons/releases/tag/v2.0.0 for more
+  details. GH #3. Implemented by James Parker.
+
+
 ## 0.1.4 - 2022-04-21
 
 * Fix handling of attributes to be compatible with all versions of Dioxus. GH
