@@ -46,6 +46,8 @@
 pub mod outline;
 /// This module contains all the solid icon shapes.
 pub mod solid;
+/// This module contains all the mini icon shapes.
+pub mod mini;
 
 use dioxus::{events::MouseEvent, prelude::*};
 
