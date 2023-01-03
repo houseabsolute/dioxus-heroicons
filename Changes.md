@@ -1,3 +1,7 @@
+## 0.1.5 - 2023-01-02
+
+* Update to heroicons v2.0.13. GH #3.
+
 ## 0.1.4 - 2022-04-21
 
 * Fix handling of attributes to be compatible with all versions of Dioxus. GH

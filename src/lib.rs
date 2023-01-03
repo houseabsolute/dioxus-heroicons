@@ -42,12 +42,12 @@
 //! that shows you all the solid icons and lets you copy the relevant
 //! component code to the clipboard.
 
+/// This module contains all the mini icon shapes.
+pub mod mini;
 /// This module contains all the outline icon shapes.
 pub mod outline;
 /// This module contains all the solid icon shapes.
 pub mod solid;
-/// This module contains all the mini icon shapes.
-pub mod mini;
 
 use dioxus::{events::MouseEvent, prelude::*};
 

@@ -42,7 +42,6 @@ fn main() {
 
     for style in &["outline", "solid", "mini"] {
         let mut src_dir = src_dir.clone();
-
         src_dir.push(style_to_dir(style));
 
         let icons = make_icons(&src_dir);
@@ -131,18 +130,18 @@ impl crate::IconShape for Shape {
 "#;
 
 const PATH_TEMPLATE: &str = r#"
-            Shape::{NAME} => rsx! {
-                path {
-                    {ATTRS}
-                },
-            },"#;
+Shape::{NAME} => rsx! {
+    path {
+        {ATTRS}
+    },
+},"#;
 
 fn write_icons_file(icons: &[Icon], to: &PathBuf) {
     let names = icons
         .iter()
         .map(|i| i.name.as_str())
         .collect::<Vec<_>>()
-        .join(",\n    ");
+        .join(",\n");
 
     let paths = icons
         .iter()
