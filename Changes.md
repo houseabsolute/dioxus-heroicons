@@ -1,3 +1,8 @@
+## 0.3.0
+
+* Update Dioxus dependency to 0.4.0. Based on GH #4 from @atty303.
+
+
 ## 0.2.0 - 2023-01-21
 
 * Update to heroicons v2.0.13. Note that this is a major version bump for the
