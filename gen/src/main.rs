@@ -9,7 +9,7 @@ use walkdir::WalkDir;
 #[clap(author, version, about, long_about = None)]
 struct Args {
     /// Path to the heroicons repo
-    #[clap(short, long)]
+    #[clap(long)]
     heroicons: PathBuf,
     /// Path to the directory where files will be written
     #[clap(short, long)]
