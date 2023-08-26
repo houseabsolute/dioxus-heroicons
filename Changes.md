@@ -1,4 +1,4 @@
-## 0.3.0
+## 0.3.0 - 2023-08-26
 
 - Update Dioxus dependency to 0.4.0. Based on GH #4 from @atty303.
 
