@@ -1,7 +1,7 @@
 # Use [heroicons](https://heroicons.com/) in [Dioxus](https://dioxuslabs.com/) as Components
 
-This library provides two components, `Icon`, and `IconButton`, which will
-generate SVG for a [heroicons](https://heroicons.com/) icon.
+This library provides two components, `Icon`, and `IconButton`, which will generate SVG for a
+[heroicons](https://heroicons.com/) icon.
 
 ```rust
 use dioxus::prelude::*;
@@ -35,23 +35,20 @@ fn PointsRight(cx: Scope) -> Element {
 }
 ```
 
-See the [library documentation](https://docs.rs/dioxus-heroicons/latest/) for
-more details.
+See the [library documentation](https://docs.rs/dioxus-heroicons/latest/) for more details.
 
 ## License
 
 Licensed under either of
 
-* Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or
+- Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or
   http://www.apache.org/licenses/LICENSE-2.0)
-* MIT license ([LICENSE-MIT](LICENSE-MIT) or
-  http://opensource.org/licenses/MIT)
+- MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
 
 at your option.
 
 ### Contribution
 
-Unless you explicitly state otherwise, any contribution intentionally
-submitted for inclusion in the work by you, as defined in the Apache-2.0
-license, shall be dual licensed as above, without any additional terms or
-conditions.
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the
+work by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without any
+additional terms or conditions.

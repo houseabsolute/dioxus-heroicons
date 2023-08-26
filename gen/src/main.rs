@@ -58,7 +58,7 @@ fn make_icons(src_dir: &PathBuf) -> Vec<Icon> {
 
     let svg_sel = Selector::parse("svg").unwrap();
     let path_sel = Selector::parse("path").unwrap();
-    for entry in WalkDir::new(&src_dir)
+    for entry in WalkDir::new(src_dir)
         .into_iter()
         .filter_map(|e| e.ok())
         .filter(|e| e.file_type().is_file() && e.file_name().to_string_lossy().ends_with(".svg"))
@@ -80,18 +80,15 @@ fn make_icons(src_dir: &PathBuf) -> Vec<Icon> {
             viewbox: svg.value().attr("viewBox").unwrap().to_string(),
             path: svg
                 .select(&path_sel)
-                .into_iter()
                 .map(|e| e.value().attr("d").unwrap().to_string())
                 .collect::<Vec<_>>()
                 .join(" "),
             clip_rule: svg
                 .select(&path_sel)
-                .into_iter()
                 .find_map(|e| e.value().attr("clip-rule"))
                 .map(|r| r.to_string()),
             fill_rule: svg
                 .select(&path_sel)
-                .into_iter()
                 .find_map(|e| e.value().attr("fill-rule"))
                 .map(|r| r.to_string()),
         });
@@ -158,7 +155,7 @@ fn write_icons_file(icons: &[Icon], to: &PathBuf) {
             PATH_TEMPLATE
                 .clone()
                 .replace("{NAME}", &i.name)
-                .replace("{ATTRS}", &attrs)
+                .replace("{ATTRS}", attrs)
         })
         .collect::<Vec<_>>()
         .join("");
@@ -169,21 +166,20 @@ fn write_icons_file(icons: &[Icon], to: &PathBuf) {
         .replace("{NAMES}", &names)
         .replace("{PATHS}", &paths);
 
-    fs::write(to, &code).unwrap();
-    Command::new("rustfmt").arg(&to).output().unwrap();
+    fs::write(to, code).unwrap();
+    Command::new("rustfmt").arg(to).output().unwrap();
 }
 
 // rustfmt gets confused about indentation in rsx! blocks and will indent the
 // first attribute properly, but not the following, so we have to indent all
 // but the first attribute manually.
 fn attr(name: &str, value: Option<&str>, indent: bool) -> Option<String> {
-    match value {
-        Some(v) => Some(format!(
+    value.map(|v| {
+        format!(
             r#"{}{}: "{}","#,
             if indent { "        " } else { "" },
             name,
             v,
-        )),
-        None => None,
-    }
+        )
+    })
 }
