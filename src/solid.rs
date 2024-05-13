@@ -310,7 +310,7 @@ impl crate::IconShape for Shape {
     }
 
     #[allow(clippy::too_many_lines)]
-    fn path(&self) -> LazyNodes {
+    fn path(&self) -> Element {
         match self {
             Shape::AcademicCap => rsx! {
                 path {
