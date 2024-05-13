@@ -1,3 +1,8 @@
+## 0.4.0
+
+- Updated Dioxus dependency to 0.6.1 and updated this crate to work with Dioxus 6. Based on a PR
+  from @jprider63. GH #6.
+
 ## 0.3.0 - 2023-08-26
 
 - Update Dioxus dependency to 0.4.0. Based on GH #4 from @atty303.
