@@ -1,6 +1,6 @@
 [package]
 name = "dioxus-heroicons"
-version = "0.3.0"
+version = "0.5.1"
 authors = ["Dave Rolsky <autarch@urth.org>"]
 description = "Dioxus components for heroicons (https://heroicons.com/)"
 repository = "https://github.com/houseabsolute/dioxus-heroicons"
@@ -9,7 +9,7 @@ license = "Apache-2.0 OR MIT"
 edition = "2018"
 
 [dependencies]
-dioxus = { version = "0.4.0", features = ["html"] }
+dioxus = { version = "0.5.1", features = ["html"] }
 
 [workspace]
 members = ["gen"]

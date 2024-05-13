@@ -118,7 +118,7 @@ impl crate::IconShape for Shape {
         VIEW_BOX
     }
 
-    fn path(&self) -> LazyNodes {
+    fn path(&self) -> Element {
         match self {
             {PATHS}
         }
