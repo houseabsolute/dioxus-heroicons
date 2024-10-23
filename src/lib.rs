@@ -94,9 +94,7 @@ pub struct IconButtonProps<S: IconShape + 'static> {
     /// An optional class that will be passed to the [`Icon`].
     #[props(default, strip_option)]
     pub icon_class: Option<String>,
-    /// These are the child elements of the `IconButton` component.
-    #[props(default, strip_option)]
-    pub children: Option<Element>,
+    pub children: Element,
 }
 
 /// Renders a `<button>` containing an SVG icon.
@@ -144,7 +142,7 @@ pub fn IconButton<S: IconShape>(props: IconButtonProps<S>) -> Element {
             },
             span {
                 class: format_args!("{}", props.span_class.unwrap_or("".to_string())),
-                { props.children.as_ref() }
+                { &props.children }
             },
         },
     }

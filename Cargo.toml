@@ -9,7 +9,7 @@ license = "Apache-2.0 OR MIT"
 edition = "2018"
 
 [dependencies]
-dioxus = { version = "0.5.1", features = ["html"] }
+dioxus = { version = "0.6.0-alpha.3", features = ["html"] }
 
 [workspace]
 members = ["gen"]
