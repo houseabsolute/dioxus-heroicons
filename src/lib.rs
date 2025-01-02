@@ -94,6 +94,7 @@ pub struct IconButtonProps<S: IconShape + 'static> {
     /// An optional class that will be passed to the [`Icon`].
     #[props(default, strip_option)]
     pub icon_class: Option<String>,
+    /// These are the child elements of the `IconButton` component.
     pub children: Element,
 }
 
