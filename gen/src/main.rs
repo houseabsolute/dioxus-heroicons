@@ -118,6 +118,7 @@ impl crate::IconShape for Shape {
         VIEW_BOX
     }
 
+    #[allow(clippy::too_many_lines)]
     fn path(&self) -> LazyNodes {
         match self {
             {PATHS}
@@ -153,7 +154,6 @@ fn write_icons_file(icons: &[Icon], to: &PathBuf) {
             .collect::<Vec<_>>()
             .join("\n");
             PATH_TEMPLATE
-                .clone()
                 .replace("{NAME}", &i.name)
                 .replace("{ATTRS}", attrs)
         })
@@ -161,7 +161,6 @@ fn write_icons_file(icons: &[Icon], to: &PathBuf) {
         .join("");
 
     let code = TEMPLATE
-        .clone()
         .replace("{VIEWBOX}", &icons[0].viewbox)
         .replace("{NAMES}", &names)
         .replace("{PATHS}", &paths);
