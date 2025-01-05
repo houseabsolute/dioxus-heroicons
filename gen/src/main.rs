@@ -100,7 +100,7 @@ fn make_icons(src_dir: &PathBuf) -> Vec<Icon> {
 const TEMPLATE: &str = r#"
 use dioxus::prelude::*;
 
-const VIEW_BOX: &str = "{VIEWBOX}";
+pub(crate) const VIEW_BOX: &str = "{VIEWBOX}";
 
 /// All available icon shapes
 ///

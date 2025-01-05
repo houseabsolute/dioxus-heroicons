@@ -1,7 +1,7 @@
 //! Dioxus components for [heroicons](https://heroicons.com/)
 //!
 //! This library provides two components. The [`Icon`] component produces the SVG for a heroicon. The
-//! [`IconButton`] component wraps the icon with a HTML `button`.
+//! [`IconButton`] component wraps the icon with an HTML `button`.
 //!
 //! In your own components, you can call them like this:
 //!
@@ -53,6 +53,8 @@ pub mod solid;
 
 use dioxus::{events::MouseEvent, prelude::*};
 
+const DISABLED_FILL_COLOR: &str = "#9CA3AF";
+
 /// This trait is used to abstract the icon shape so you can use shapes from the [`outline`] or
 /// [`solid`] modules for any property that accepts a shape.
 pub trait IconShape: Clone + PartialEq + std::fmt::Debug {
@@ -88,7 +90,7 @@ pub struct IconButtonProps<S: IconShape + 'static> {
     pub disabled: bool,
     /// The fill color to use when `disabled` is true. This is only relevant for solid icons. This
     /// defaults to "#9CA3AF", which is "coolGray 400" from tailwindcss.
-    #[props(default = "#9CA3AF".to_string())]
+    #[props(default = DISABLED_FILL_COLOR.to_string())]
     pub disabled_fill: String,
     /// The icon shape to use.
     pub icon: S,
@@ -117,7 +119,7 @@ pub struct IconButtonProps<S: IconShape + 'static> {
 ///
 /// See the [`IconButtonProps`] field documentation for details on the properties it accepts.
 ///
-/// The child elements are optional, and are there so you can add some additional text or other HTML
+/// Passing children is optional. This is there so you can add some additional text or other HTML
 /// to the button.
 #[allow(clippy::missing_errors_doc, non_snake_case)]
 #[component]
@@ -127,13 +129,13 @@ pub fn IconButton<S: IconShape>(props: IconButtonProps<S>) -> Element {
     rsx! {
         button {
             onclick: move |evt| if !disabled {
-                if let Some(oc) = &onclick {
+                if let Some(oc) = onclick {
                     oc.call(evt);
                 }
             },
-            class: format_args!("{}", props.class.unwrap_or_default()),
-            title: format_args!("{}", props.title.unwrap_or_default()),
-            disabled: format_args!("{}", if props.disabled { "true" } else { "false" }),
+            class: if let Some(class) = props.class { class },
+            title: if let Some(title) = props.title { title },
+            disabled: disabled,
             Icon {
                 ..IconProps {
                     class: props.icon_class,
@@ -144,10 +146,12 @@ pub fn IconButton<S: IconShape>(props: IconButtonProps<S>) -> Element {
                     disabled_fill: props.disabled_fill,
                 },
             },
-            span {
-                class: format_args!("{}", props.span_class.unwrap_or_default()),
-                { &props.children }
-            },
+            if props.children != VNode::empty() {
+                span {
+                    class: if let Some(span_class) = props.span_class { span_class },
+                    { props.children }
+                },
+            }
         },
     }
 }
@@ -174,7 +178,7 @@ pub struct IconProps<S: IconShape + 'static> {
     pub disabled: bool,
     /// The fill color to use when `disabled` is true. This is only relevant for solid icons. This
     /// defaults to "#9CA3AF", which is "coolGray 400" from tailwindcss.
-    #[props(default = "#9CA3AF".to_string())]
+    #[props(default = DISABLED_FILL_COLOR.to_string())]
     pub disabled_fill: String,
 }
 
@@ -191,12 +195,198 @@ pub fn Icon<S: IconShape>(props: IconProps<S>) -> Element {
     };
     rsx! {
         svg {
-            class: format_args!("{}", props.class.unwrap_or_default()),
+            class: if let Some(class) = props.class { class },
             height: format_args!("{}", props.size),
             width: format_args!("{}", props.size),
             view_box: format_args!("{}", props.icon.view_box()),
             fill: "{fill}",
             { props.icon.path() }
         }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use dioxus_ssr;
+    use html_compare_rs::assert_html_eq;
+
+    #[test]
+    fn icon_default() {
+        assert_rsx_eq(
+            rsx! {
+                Icon {
+                    icon: outline::Shape::ArrowLeft,
+                },
+            },
+            rsx! {
+                svg {
+                    height: 20,
+                    width: 20,
+                    view_box: outline::VIEW_BOX,
+                    fill: "currentColor",
+                    { outline::Shape::ArrowLeft.path() },
+                },
+            },
+        );
+    }
+
+    #[test]
+    fn icon_class() {
+        assert_rsx_eq(
+            rsx! {
+                Icon {
+                    icon: outline::Shape::ArrowLeft,
+                    class: "foo",
+                },
+            },
+            rsx! {
+                svg {
+                    class: "foo",
+                    height: 20,
+                    width: 20,
+                    view_box: outline::VIEW_BOX,
+                    fill: "currentColor",
+                    { outline::Shape::ArrowLeft.path() },
+                },
+            },
+        );
+    }
+
+    #[test]
+    fn icon_disabled() {
+        assert_rsx_eq(
+            rsx! {
+                Icon {
+                    icon: outline::Shape::ArrowLeft,
+                    disabled: true,
+                },
+            },
+            rsx! {
+                svg {
+                    height: 20,
+                    width: 20,
+                    view_box: outline::VIEW_BOX,
+                    fill: DISABLED_FILL_COLOR,
+                    { outline::Shape::ArrowLeft.path() },
+                },
+            },
+        );
+    }
+
+    #[test]
+    fn icon_button_default() {
+        assert_rsx_eq(
+            rsx! {
+                IconButton {
+                    icon: outline::Shape::ArrowLeft,
+                },
+            },
+            rsx! {
+                button {
+                    svg {
+                        height: 20,
+                        width: 20,
+                        view_box: outline::VIEW_BOX,
+                        fill: "currentColor",
+                        {
+                            outline::Shape::ArrowLeft.path()
+                        },
+                    },
+                },
+            },
+        );
+    }
+
+    #[test]
+    fn icon_button_with_span_children() {
+        assert_rsx_eq(
+            rsx! {
+                IconButton {
+                    icon: outline::Shape::ArrowLeft,
+                    b {
+                        "button text"
+                    },
+                },
+            },
+            rsx! {
+                button {
+                    svg {
+                        height: 20,
+                        width: 20,
+                        view_box: outline::VIEW_BOX,
+                        fill: "currentColor",
+                        {
+                            outline::Shape::ArrowLeft.path()
+                        },
+                    },
+                    span {
+                        b {
+                            "button text"
+                        }
+                    },
+                },
+            },
+        );
+    }
+
+    #[test]
+    fn icon_button_with_props() {
+        assert_rsx_eq(
+            rsx! {
+                IconButton {
+                    class: "some-button",
+                    icon: outline::Shape::ArrowLeft,
+                    title: "Foo",
+                },
+            },
+            rsx! {
+                button {
+                    class: "some-button",
+                    title: "Foo",
+                    svg {
+                        height: 20,
+                        width: 20,
+                        view_box: outline::VIEW_BOX,
+                        fill: "currentColor",
+                        {
+                            outline::Shape::ArrowLeft.path()
+                        },
+                    },
+                },
+            },
+        );
+    }
+
+    #[test]
+    fn icon_button_disabled() {
+        assert_rsx_eq(
+            rsx! {
+                IconButton {
+                    icon: outline::Shape::ArrowLeft,
+                    disabled: true,
+                },
+            },
+            rsx! {
+                button {
+                    disabled: true,
+                    svg {
+                        height: 20,
+                        width: 20,
+                        view_box: outline::VIEW_BOX,
+                        fill: DISABLED_FILL_COLOR,
+                        {
+                            outline::Shape::ArrowLeft.path()
+                        },
+                    },
+                },
+            },
+        );
+    }
+
+    fn assert_rsx_eq(first: Element, second: Element) {
+        let first = dioxus_ssr::render_element(first);
+        let second = dioxus_ssr::render_element(second);
+        assert_html_eq!(first, second);
     }
 }

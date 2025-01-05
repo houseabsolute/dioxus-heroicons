@@ -2,6 +2,10 @@
 
 - Updated Dioxus dependency to 0.6.1 and updated this crate to work with Dioxus 6. Based on a PR
   from @jprider63. GH #6.
+- When attributes like `class` or `title` are not set, they are no longer included as empty strings
+  in the generated HTML, e.g. `class=""`.
+- Similarly, the `IconButton` no longer includes an empty `<span></span>` when it does not have any
+  child elements.
 
 ## 0.3.0 - 2023-08-26
 
