@@ -11,6 +11,12 @@ edition = "2018"
 [dependencies]
 dioxus = { version = "0.6.1", features = ["html"] }
 
+[dev-dependencies]
+# Workaround for https://github.com/DioxusLabs/dioxus/issues/3053
+futures-channel = "0.3.29"
+dioxus-ssr = "0.6.1"
+html-compare-rs = "0.3.0"
+
 [workspace]
 members = ["gen"]
 

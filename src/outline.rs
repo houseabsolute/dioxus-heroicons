@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-const VIEW_BOX: &str = "0 0 24 24";
+pub(crate) const VIEW_BOX: &str = "0 0 24 24";
 
 /// All available icon shapes
 ///
