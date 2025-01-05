@@ -4,7 +4,6 @@ version = "0.1.0"
 authors = ["Dave Rolsky <autarch@urth.org>"]
 description = "The generator for the dioxus-heroicons code"
 repository = "https://github.com/houseabsolute/dioxus-heroicons"
-readme = "README.md"
 license = "MIT OR Apache-2.0"
 edition = "2018"
 
