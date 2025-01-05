@@ -1,20 +1,19 @@
-name: Continuous integration
+name: Tests and release
 
 on:
   push:
     branches:
       - "**"
-    tags-ignore:
-      - "dioxus-heroicons-*"
   pull_request:
 
 env:
   CRATE_NAME: dioxus-heroicons
+  GITHUB_TOKEN: ${{ github.token }}
   RUST_BACKTRACE: 1
 
 jobs:
   test:
-    name: Test - ${{ matrix.platform.os-name }} with rust ${{ matrix.toolchain }}
+    name: ${{ matrix.platform.os-name }} with rust ${{ matrix.toolchain }}
     runs-on: ${{ matrix.platform.runs-on }}
     strategy:
       fail-fast: false
@@ -36,27 +35,46 @@ jobs:
           - os-name: Linux-i686
             runs-on: ubuntu-20.04
             target: i686-unknown-linux-musl
-            skip-tests: true
-          - os-name: Linux-powerpc
-            runs-on: ubuntu-20.04
-            target: powerpc-unknown-linux-gnu
-            skip-tests: true
+          # Fails to build:
+          #
+          # error[E0432]: unresolved import `std::sync::atomic::AtomicU64`
+          #  --> /cargo/registry/src/index.crates.io-6f17d22bba15001f/generational-box-0.6.1/src/entry.rs:7:20
+          #   |
+          # 7 |     sync::atomic::{AtomicU64, Ordering},
+          #   |                    ^^^^^^^^^
+          #   |                    |
+          #   |                    no `AtomicU64` in `sync::atomic`
+          #   |                    help: a similar name exists in the module: `AtomicU32`
+          #
+          # - os-name: Linux-powerpc
+          #   runs-on: ubuntu-20.04
+          #   target: powerpc-unknown-linux-gnu
           - os-name: Linux-powerpc64
             runs-on: ubuntu-20.04
             target: powerpc64-unknown-linux-gnu
-            skip-tests: true
           - os-name: Linux-powerpc64le
             runs-on: ubuntu-20.04
             target: powerpc64le-unknown-linux-gnu
-            skip-tests: true
           - os-name: Linux-riscv64
             runs-on: ubuntu-20.04
             target: riscv64gc-unknown-linux-gnu
           - os-name: Linux-s390x
             runs-on: ubuntu-20.04
             target: s390x-unknown-linux-gnu
-            skip-tests: true
-          # This has a compilation an error from the libc crate - unresolved import `libc::xucred`
+          # Fails to build:
+          #
+          # error[E0308]: mismatched types
+          #   --> /cargo/registry/src/index.crates.io-6f17d22bba15001f/manganis-core-0.6.1/src/linker.rs:42:47
+          #    |
+          # 42 |       pub const CURRENT: &'static LinkSection = {
+          #    |  _______________________________________________^
+          # 43 | |         #[cfg(any(
+          # 44 | |             target_os = "none",
+          # 45 | |             target_os = "linux",
+          # ...  |
+          # 69 | |         }
+          # 70 | |     };
+          #    | |_____^ expected `&LinkSection`, found `()`
           #
           # - os-name: NetBSD-x86_64
           #   runs-on: ubuntu-20.04
@@ -69,7 +87,6 @@ jobs:
           - os-name: Windows-i686
             runs-on: windows-latest
             target: i686-pc-windows-msvc
-            skip-tests: true
           - os-name: Windows-x86_64
             runs-on: windows-latest
             target: x86_64-pc-windows-msvc
@@ -102,12 +119,13 @@ jobs:
           command: "build"
           target: ${{ matrix.platform.target }}
           toolchain: ${{ matrix.toolchain }}
-          args: "--workspace --release"
+          args: "--release"
+          strip: false
       - name: Run tests
         uses: houseabsolute/actions-rust-cross@v1
         with:
           command: "test"
           target: ${{ matrix.platform.target }}
           toolchain: ${{ matrix.toolchain }}
-          args: "--workspace --release"
+          args: "--release"
         if: ${{ !matrix.platform.skip-tests }}
