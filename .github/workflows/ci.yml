@@ -20,20 +20,20 @@ jobs:
       matrix:
         platform:
           - os-name: FreeBSD-x86_64
-            runs-on: ubuntu-20.04
+            runs-on: ubuntu-latest
             target: x86_64-unknown-freebsd
             skip-tests: true
           - os-name: Linux-x86_64
-            runs-on: ubuntu-20.04
+            runs-on: ubuntu-latest
             target: x86_64-unknown-linux-musl
           - os-name: Linux-aarch64
-            runs-on: ubuntu-20.04
+            runs-on: ubuntu-latest
             target: aarch64-unknown-linux-musl
           - os-name: Linux-arm
-            runs-on: ubuntu-20.04
+            runs-on: ubuntu-latest
             target: arm-unknown-linux-musleabi
           - os-name: Linux-i686
-            runs-on: ubuntu-20.04
+            runs-on: ubuntu-latest
             target: i686-unknown-linux-musl
           # Fails to build:
           #
@@ -47,19 +47,19 @@ jobs:
           #   |                    help: a similar name exists in the module: `AtomicU32`
           #
           # - os-name: Linux-powerpc
-          #   runs-on: ubuntu-20.04
+          #   runs-on: ubuntu-latest
           #   target: powerpc-unknown-linux-gnu
           - os-name: Linux-powerpc64
-            runs-on: ubuntu-20.04
+            runs-on: ubuntu-latest
             target: powerpc64-unknown-linux-gnu
           - os-name: Linux-powerpc64le
-            runs-on: ubuntu-20.04
+            runs-on: ubuntu-latest
             target: powerpc64le-unknown-linux-gnu
           - os-name: Linux-riscv64
-            runs-on: ubuntu-20.04
+            runs-on: ubuntu-latest
             target: riscv64gc-unknown-linux-gnu
           - os-name: Linux-s390x
-            runs-on: ubuntu-20.04
+            runs-on: ubuntu-latest
             target: s390x-unknown-linux-gnu
           # Fails to build:
           #
@@ -77,7 +77,7 @@ jobs:
           #    | |_____^ expected `&LinkSection`, found `()`
           #
           # - os-name: NetBSD-x86_64
-          #   runs-on: ubuntu-20.04
+          #   runs-on: ubuntu-latest
           #   target: x86_64-unknown-netbsd
           #   skip-tests: true
           - os-name: Windows-aarch64
@@ -101,13 +101,13 @@ jobs:
         include:
           - platform:
               os-name: Linux-x86_64
-              runs-on: ubuntu-20.04
+              runs-on: ubuntu-latest
               target: x86_64-unknown-linux-musl
               bin: ubi
             toolchain: beta
           - platform:
               os-name: Linux-x86_64
-              runs-on: ubuntu-20.04
+              runs-on: ubuntu-latest
               target: x86_64-unknown-linux-musl
               bin: ubi
             toolchain: nightly
