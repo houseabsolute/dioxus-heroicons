@@ -1,3 +1,8 @@
+## 0.4.1 - 2025-11-22
+
+- Changed the Dioxus dependency so that this crate will work with 0.6.1+, including 0.7.x, etc.
+  Requested by @jprider63.
+
 ## 0.4.0 - 2025-01-05
 
 - Updated Dioxus dependency to 0.6.1 and updated this crate to work with Dioxus 0.6. Based on a PR
