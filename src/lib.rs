@@ -208,7 +208,6 @@ pub fn Icon<S: IconShape>(props: IconProps<S>) -> Element {
 #[cfg(test)]
 mod test {
     use super::*;
-    use dioxus_ssr;
     use html_compare_rs::assert_html_eq;
 
     #[test]
